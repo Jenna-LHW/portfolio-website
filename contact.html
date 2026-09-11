@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Jenna Li Hoi Wah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="project.css">
+<link rel="stylesheet" href="contact.css">
+</head>
+<body class="light-page" data-nav-visible="true">
+
+<div id="nav-slot"></div>
+<div id="topbar-slot"></div>
+
+<section class="contact-wrap">
+  <div class="contact-pill mono">Usually replies within 48 hours</div>
+  <h1>Let's build<br>something</h1>
+  <p class="lede">Got a project idea, an internship opening, or just a question about something I've built? Send a message and I'll get back to you.</p>
+
+  <form
+    name="contact"
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    class="contact-form"
+    onsubmit="return handleSubmit(event)"
+  >
+    <input type="hidden" name="form-name" value="contact">
+    <p class="hp-field" hidden>
+      <label>Don't fill this out if you're human: <input name="bot-field"></label>
+    </p>
+    <div class="form-row">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+    </div>
+    <textarea name="message" placeholder="Message" rows="6" required></textarea>
+    <button type="submit" class="btn form-submit">Send message</button>
+    <p class="form-note mono" id="formNote"></p>
+  </form>
+</section>
+
+<div id="footer-slot"></div>
+
+<script src="partials.js"></script>
+<script>
+  function handleSubmit(e){
+    e.preventDefault();
+    const form = e.target;
+    const note = document.getElementById('formNote');
+    const data = new FormData(form);
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString()
+    })
+      .then(() => {
+        note.textContent = "Thanks — your message has been sent. I'll get back to you soon.";
+        form.reset();
+      })
+      .catch(() => {
+        note.textContent = "Something went wrong sending that — please try emailing me directly instead.";
+      });
+
+    return false;
+  }
+</script>
+
+</body>
+</html>
