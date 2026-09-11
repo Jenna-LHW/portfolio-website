@@ -27,9 +27,10 @@ const PROJECTS = [
       "https://raw.githubusercontent.com/Jenna-LHW/UniFind/main/screenshots/item-detail.png"
     ],
     results: [
-      { num: "6", label: "REST API resource groups — auth, lost items, found items, claims, notifications, reviews" },
-      { num: "3", label: "user roles supported: student, staff, and admin" }
+      { num: "3", label: "user roles supported: student, staff, and admin" }, 
+      { num: "6", label: "core features: item reporting, claims, notifications, reviews, contact system and role-based access control" },
+      { num: "20+", label: "API endpoints across lost items, found items, claims, notifications, reviews and contact messages" }      
     ],
-    reflection: "The recent-items list on the home page isn't clickable yet, and the claim submission page could use a cleaner, more guided UI — both are on my list. I'd also like to swap the static campus map for something interactive, and let users edit a review after submitting it instead of being locked in."
+    reflection: "The recent-items list on the home page isn't clickable yet, and the claim submission page could use a cleaner, more guided UI. I'd also like to swap the static campus map for something interactive, and let users edit a review after submitting it instead of being locked in."
   }
 ];

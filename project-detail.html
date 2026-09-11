@@ -19,11 +19,27 @@
 
 <div id="detailRoot"><!-- filled in by script below --></div>
 
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="">
+</div>
+
 <div id="footer-slot"></div>
 
 <script src="projects.js"></script>
 <script src="partials.js"></script>
 <script>
+    function openLightbox(src){
+        if(src.startsWith('linear-gradient')) return;
+        const lb = document.getElementById('lightbox');
+        const img = document.getElementById('lightboxImg');
+        img.src = src;
+        lb.classList.add('open');
+        document.documentElement.classList.add('no-scroll');
+        }
+        function closeLightbox(){
+        document.getElementById('lightbox').classList.remove('open');
+        document.documentElement.classList.remove('no-scroll');
+    }
   document.addEventListener('partials:ready', () => {
     const params = new URLSearchParams(location.search);
     const requestedId = params.get('id');
@@ -101,11 +117,15 @@
         <div class="eyebrow-tag mono">Screens</div>
         <h2 class="h-large" style="margin-bottom:40px;">A closer look</h2>
         <div class="gallery-grid">
-          ${project.gallery.map((bg, i) => `
-            <div class="gallery-item${i === 0 ? ' wide' : ''}" style="background:${bg.startsWith('linear-gradient') ? bg : `url('${bg}') center/cover no-repeat`};">
-              <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            ${project.gallery.map((src, i) => `
+            <div class="gallery-item${i === 0 ? ' wide' : ''}" onclick="openLightbox('${src}')">
+                ${src.startsWith('linear-gradient')
+                ? `<div class="gallery-fallback" style="background:${src};"></div>`
+                : `<img src="${src}" alt="${project.title} screenshot ${i + 1}">`
+                }
+                <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
             </div>
-          `).join('')}
+            `).join('')}
         </div>
       </section>
 
@@ -121,7 +141,7 @@
           `).join('')}
         </div>
         <div class="reflection">
-          <h4>What I'd do differently</h4>
+          <h4>Future Work</h4>
           <p>${project.reflection}</p>
         </div>
       </section>
