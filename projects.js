@@ -3,7 +3,7 @@ const PROJECTS = [
     id: "unifind",
     title: "UniFind",
     tag: "Full-Stack",
-    date: "2025",
+    date: "2026",
     thumbnail: "assets/unifind-thumbnail.jpeg",
     gradient: "linear-gradient(135deg,#1c2b3d,#3D3AFE)",
     pitch: "A full-stack Lost &amp; Found platform for university students and staff to report, search, and recover lost or found items.",
