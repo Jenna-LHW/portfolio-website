@@ -22,9 +22,9 @@ const PROJECTS = [
       { title: "Reviews &amp; admin tools", body: "A star-rated review system with likes and admin replies, plus a full admin panel for managing listings, claims, and contact messages." }
     ],
     gallery: [
-      "/assets/unifind.png",
-      "https://raw.githubusercontent.com/Jenna-LHW/UniFind/main/screenshots/lost-items.png",
-      "https://raw.githubusercontent.com/Jenna-LHW/UniFind/main/screenshots/item-detail.png"
+      "assets/unifind-homepage.png",
+      "assets/unifind-lostitem.png",
+      "assets/unifind-notificationpage.png"
     ],
     results: [
       { num: "3", label: "user roles supported: student, staff, and admin" }, 
