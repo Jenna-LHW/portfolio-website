@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project — Jenna Li Hoi Wah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="project.css">
+<link rel="stylesheet" href="project-detail.css">
+</head>
+<body class="light-page" data-nav-visible="true">
+
+<div id="nav-slot"></div>
+<div id="topbar-slot"></div>
+
+<div id="detailRoot"><!-- filled in by script below --></div>
+
+<div id="footer-slot"></div>
+
+<script src="projects.js"></script>
+<script src="partials.js"></script>
+<script>
+  document.addEventListener('partials:ready', () => {
+    const params = new URLSearchParams(location.search);
+    const requestedId = params.get('id');
+    const index = PROJECTS.findIndex(p => p.id === requestedId);
+    const project = index >= 0 ? PROJECTS[index] : PROJECTS[0];
+    const activeIndex = index >= 0 ? index : 0;
+    const next = PROJECTS.length > 1 ? PROJECTS[(activeIndex + 1) % PROJECTS.length] : null;
+
+    document.title = `${project.title} — Jenna Li Hoi Wah`;
+
+    document.getElementById('detailRoot').innerHTML = `
+      <div class="detail-back">
+        <a href="project.html">← All projects</a>
+      </div>
+
+      <header class="detail-hero">
+        <div class="detail-hero-copy">
+          <div class="eyebrow-tag mono">${project.tag} · ${project.date}</div>
+          <h1>${project.title}</h1>
+          <p class="lede">${project.pitch}</p>
+        </div>
+        <div class="detail-hero-media" style="background:${project.thumbnail ? `url('${project.thumbnail}') center/cover no-repeat` : project.gradient};">
+          <span class="corner tl"></span>
+          <span class="corner tr"></span>
+          <span class="corner bl"></span>
+          <span class="corner br"></span>
+        </div>
+      </header>
+
+      <section class="detail-facts">
+        <div class="fact">
+          <div class="fact-label mono">Role</div>
+          <div class="fact-value">${project.role}</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label mono">Timeline</div>
+          <div class="fact-value">${project.timeline}</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label mono">Stack</div>
+          <div class="fact-value">${project.stack}</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label mono">Links</div>
+          <div class="fact-value"><a href="${project.links.demo}">Live demo ↗</a> &nbsp;·&nbsp; <a href="${project.links.source}">Source ↗</a></div>
+        </div>
+      </section>
+
+      <section class="detail-block">
+        <div class="detail-grid">
+          <div class="detail-col-label"><div class="eyebrow-tag mono">The problem</div></div>
+          <div class="detail-col-body"><p>${project.problem}</p></div>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-col-label"><div class="eyebrow-tag mono">The approach</div></div>
+          <div class="detail-col-body"><p>${project.approach}</p></div>
+        </div>
+      </section>
+
+      <section class="detail-block">
+        <div class="eyebrow-tag mono">Key features</div>
+        <h2 class="h-large" style="margin-bottom:40px;">What it does</h2>
+        <div class="feature-grid">
+          ${project.features.map((f, i) => `
+            <div class="feature-card">
+              <div class="feature-num mono">${String(i + 1).padStart(2, '0')}</div>
+              <h4>${f.title}</h4>
+              <p>${f.body}</p>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+
+      <section class="detail-block">
+        <div class="eyebrow-tag mono">Screens</div>
+        <h2 class="h-large" style="margin-bottom:40px;">A closer look</h2>
+        <div class="gallery-grid">
+          ${project.gallery.map((bg, i) => `
+            <div class="gallery-item${i === 0 ? ' wide' : ''}" style="background:${bg.startsWith('linear-gradient') ? bg : `url('${bg}') center/cover no-repeat`};">
+              <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+
+      <section class="detail-block results-block">
+        <div class="eyebrow-tag mono">Outcome</div>
+        <h2 class="h-large" style="margin-bottom:40px;">What came of it</h2>
+        <div class="results-grid">
+          ${project.results.map(r => `
+            <div class="result">
+              <div class="result-num">${r.num}</div>
+              <div class="result-label">${r.label}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="reflection">
+          <h4>What I'd do differently</h4>
+          <p>${project.reflection}</p>
+        </div>
+      </section>
+
+      <nav class="project-pager">
+        <a href="project.html" class="pager-link prev${next ? '' : ' pager-link-solo'}">
+          <span class="mono">← Back to</span>
+          <strong>All projects</strong>
+        </a>
+        ${next ? `
+        <a href="project-detail.html?id=${next.id}" class="pager-link next">
+          <span class="mono">Next project →</span>
+          <strong>${next.title}</strong>
+        </a>` : ''}
+      </nav>
+
+      <section class="cta-block" id="contact">
+        <h2>Curious how it works under the hood?</h2>
+        <p class="lede">Happy to walk through the code, the trade-offs, or anything I'd build differently next time.</p>
+        <a class="btn" href="contact.html">Get in touch</a>
+      </section>
+    `;
+  });
+</script>
+
+</body>
+</html>
