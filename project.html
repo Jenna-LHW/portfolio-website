@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project — Jenna Li Hoi Wah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="project.css">
+</head>
+<body class="light-page" data-nav-visible="true">
+
+<div id="nav-slot"></div>
+<div id="topbar-slot"></div>
+
+<header class="project-header">
+  <div class="eyebrow-tag mono">Projects</div>
+  <h1>Browse my work</h1>
+  <p class="lede" style="margin:0 auto;">Each project is a problem I wanted to solve, capturing how I think through code, design, and systems. Browse through what I've built so far.</p>
+</header>
+
+<div class="project-grid" id="projectGrid"></div>
+
+<div id="footer-slot"></div>
+
+<script src="projects.js"></script>
+<script src="partials.js"></script>
+<script>
+  document.addEventListener('partials:ready', () => {
+    const grid = document.getElementById('projectGrid');
+    grid.innerHTML = PROJECTS.map(p => `
+      <a class="project-card" href="project-detail.html?id=${p.id}">
+        <div class="pc-media" style="background:${p.thumbnail ? `url('${p.thumbnail}') center/cover no-repeat` : p.gradient};">
+          <span class="corner tl"></span>
+          <span class="corner tr"></span>
+          <span class="corner bl"></span>
+          <span class="corner br"></span>
+        </div>
+        <div class="pc-meta">
+          <div>
+            <div class="pc-title">${p.title}</div>
+            <div class="pc-date mono">${p.date}</div>
+          </div>
+          <div class="pc-tag mono">${p.tag}</div>
+        </div>
+      </a>
+    `).join('');
+  });
+</script>
+
+</body>
+</html>
